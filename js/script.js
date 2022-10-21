@@ -22,6 +22,10 @@ function createGrid(numberCells){
   }
   cellsCollection = document.getElementsByClassName('box');
   createBombs(cellsCollection);
+
+  // Per ogni elemento della listbombs che contiene gli indici delle celle con una bomba
+  // Richiamo la funzione checkForNearbyBombs e passo come 'this' cellsCollection
+  listBombs.forEach(checkForNearbyBombs, cellsCollection);
 }
 
 function createCell(numberCells, index){
@@ -31,6 +35,8 @@ function createCell(numberCells, index){
   box.style.height = 'calc(100% / ' + Math.sqrt(numberCells) + ')';
   box.boxId = index;
   box.bombFlag = 0;
+  box.bombsNearby = 0;
+  box.alreadyClicked = 0;
   box.innerHTML = box.boxId;
   box.addEventListener('click', clickedBox);
   return box;
@@ -42,8 +48,11 @@ function clickedBox(){
     this.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
   } else{
     this.classList.add('clicked');
-    this.innerHTML = '';
-    score++;
+    this.innerHTML = this.bombsNearby;
+    if (!(this.alreadyClicked)){
+      score++;
+      this.alreadyClicked = 1;
+    }
   }
   cellsCollection = document.getElementsByClassName('box');
   if(this.bombFlag || score == (cellsCollection.length - numberBombs)) endGame(score, cellsCollection);
@@ -58,7 +67,8 @@ function createBombs(cellsCollection){
       cellsCollection[rnd].bombFlag = 1;
     }
   }
-  console.log(listBombs);
+  // HACK
+  // console.log(listBombs);
 }
 
 function endGame(score, cellsCollection){
@@ -76,4 +86,30 @@ function endGame(score, cellsCollection){
       cellsCollection[i].innerHTML = `<i class="fa-solid fa-bomb"></i>`;
     }
   }
+}
+
+function checkForNearbyBombs(value){
+  const difficulty = document.querySelector('header select').value;
+  const cellsPerRow = Math.sqrt(numberCells[difficulty]);
+  // Controlla se la cella SOPRA a quella della bomba esiste, se esiste incrementa il contatore di bombe vicine
+  if(this[value-cellsPerRow]) this[value-cellsPerRow].bombsNearby += 1;
+  // Controlla se la cella SOTTO a quella della bomba esiste, se esiste incrementa il contatore di bombe vicine
+  if(this[value+cellsPerRow]) this[value+cellsPerRow].bombsNearby += 1;
+  
+  // Controlla se la cella con la bomba è nell'ultima colonna, se lo è non fare i seguenti calcoli
+  if((value+1)%cellsPerRow){
+    // Incrementa il contatore delle celle a destra, sotto-destra, sopra-destra rispetto alla bomba
+    if(this[value+1]) this[value+1].bombsNearby += 1;
+    if(this[value+cellsPerRow+1]) this[value+cellsPerRow+1].bombsNearby += 1;
+    if(this[value-cellsPerRow+1]) this[value-cellsPerRow+1].bombsNearby += 1;
+  } 
+  
+  // Controlla se la cella con la bomba è nella prima colonna, se lo è non fare i seguenti calcoli
+  if((value+1)%cellsPerRow != 1){
+    // Incrementa il contatore delle celle a screenX, sotto-sinistra, sopra-sinistra rispetto alla bomba
+    if(this[value-1]) this[value-1].bombsNearby += 1;
+    if(this[value+cellsPerRow-1]) this[value+cellsPerRow-1].bombsNearby += 1;
+    if(this[value-cellsPerRow-1]) this[value-cellsPerRow-1].bombsNearby += 1;
+  }
+
 }

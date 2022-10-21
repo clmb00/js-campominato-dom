@@ -121,6 +121,7 @@ main{
 .box.clicked{
   background-color: #ccd5ae;
   border-color: #a6ad8e;
+  color: black;
 }
 
 .box.bomb{
