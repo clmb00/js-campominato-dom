@@ -4,11 +4,13 @@ const playButton = document.querySelector('header button');
 const numberBombs = 6;
 let listBombs = [];
 let score = 0;
+const output = document.getElementById('output');
 
 playButton.addEventListener('click', function(){
-  container.innerHTML = ""
+  container.innerHTML = "";
   listBombs = [];
   score = 0;
+  output.innerHTML = "";
   const difficulty = document.querySelector('header select').value;
   createGrid(numberCells[difficulty]);
   playButton.innerHTML = "New game"
@@ -60,11 +62,14 @@ function createBombs(cellsCollection){
 }
 
 function endGame(score, cellsCollection){
-  const output = document.getElementById('output');
   const tot = cellsCollection.length - numberBombs;
   if (score == tot){
     output.innerHTML = `Complimenti hai vinto! Hai totalizzato ${score} / ${tot}!`;
   } else {
     output.innerHTML = `Hai perso! Hai totalizzato ${score} / ${tot}`;
+  }
+  // Block the grid
+  for (let i = 0; i < cellsCollection.length; i++){
+    cellsCollection[i].removeEventListener('click', clickedBox);
   }
 }
