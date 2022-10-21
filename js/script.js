@@ -1,7 +1,7 @@
 const container = document.querySelector('.main_container');
 const numberCells = [36, 49, 81, 100, 144];
 const playButton = document.querySelector('header button');
-const numberBombs = 6;
+const numberBombs = 10;
 let listBombs = [];
 let score = 0;
 const output = document.getElementById('output');
@@ -71,5 +71,9 @@ function endGame(score, cellsCollection){
   // Block the grid
   for (let i = 0; i < cellsCollection.length; i++){
     cellsCollection[i].removeEventListener('click', clickedBox);
+    if (listBombs.includes(i)){
+      cellsCollection[i].classList.add('bomb');
+      cellsCollection[i].innerHTML = `<i class="fa-solid fa-bomb"></i>`;
+    }
   }
 }
