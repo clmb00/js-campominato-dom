@@ -1,12 +1,14 @@
 const container = document.querySelector('.main_container');
 const numberCells = [36, 49, 81, 100, 144];
 const playButton = document.querySelector('header button');
-const numberBombs = 16;
+const numberBombs = 6;
 let listBombs = [];
+let score = 0;
 
 playButton.addEventListener('click', function(){
   container.innerHTML = ""
   listBombs = [];
+  score = 0;
   const difficulty = document.querySelector('header select').value;
   createGrid(numberCells[difficulty]);
   playButton.innerHTML = "New game"
@@ -39,7 +41,10 @@ function clickedBox(){
   } else{
     this.classList.add('clicked');
     this.innerHTML = '';
+    score++;
   }
+  cellsCollection = document.getElementsByClassName('box');
+  if(this.bombFlag || score == (cellsCollection.length - numberBombs)) endGame(score, cellsCollection);
 }
 
 function createBombs(cellsCollection){
@@ -50,5 +55,16 @@ function createBombs(cellsCollection){
       listBombs.push(rnd);
       cellsCollection[rnd].bombFlag = 1;
     }
+  }
+  console.log(listBombs);
+}
+
+function endGame(score, cellsCollection){
+  const output = document.getElementById('output');
+  const tot = cellsCollection.length - numberBombs;
+  if (score == tot){
+    output.innerHTML = `Complimenti hai vinto! Hai totalizzato ${score} / ${tot}!`;
+  } else {
+    output.innerHTML = `Hai perso! Hai totalizzato ${score} / ${tot}`;
   }
 }
