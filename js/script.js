@@ -33,8 +33,13 @@ function createCell(numberCells, index){
 }
 
 function clickedBox(){
-  console.log(this.innerHTML);
-  this.classList.add('active');
+  if(this.bombFlag){
+    this.classList.add('bomb');
+    this.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
+  } else{
+    this.classList.add('clicked');
+    this.innerHTML = '';
+  }
 }
 
 function createBombs(cellsCollection){

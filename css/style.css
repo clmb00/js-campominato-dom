@@ -115,3 +115,10 @@ main{
   background-color: #ccd5ae;
   border-color: #a6ad8e;
 }
+
+.box.bomb{
+  background-color: #d48181;
+  border-color: #a76565;
+  color: black;
+  font-size: 3rem;
+}
