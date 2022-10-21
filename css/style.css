@@ -1,0 +1,116 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #faedcd;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  user-select: none;
+}
+
+header, footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #d4a373;
+}
+
+header{
+  height: 80px;
+}
+
+footer{
+  height: 60px;
+}
+
+h1{
+  font-size: 3.6rem;
+  color: #fefae0;
+}
+
+.controls{
+  font-size: 1.6rem;
+}
+
+.controls select{
+  cursor: pointer;
+  font-size: 1.2rem;
+  height: 40px;
+  width: 200px;
+  padding-left: 10px;
+  background-color: #fefae0;
+  border: none;
+  border-radius: 5px;
+}
+
+.controls label{
+  margin-right: 10px;
+}
+
+.controls button{
+  font-size: 1.2rem;
+  height: 40px;
+  padding: 0px 15px;
+  background-color: #fefae0;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.controls button:hover{
+  cursor: pointer;
+  box-shadow: 0px 0px 2px black;
+}
+
+.controls button:active{
+  background-color: #a09d8c;
+}
+
+footer span{
+  font-size: 1.2rem;
+}
+
+main{
+  width: 100%;
+  height: calc(100vh - 140px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main_container{
+  width: 40%;
+  aspect-ratio: 1/1;
+  max-height: 90%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box{
+  cursor: pointer;
+  border: 2px solid #ccd5ae;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: backgroung-color .5s ease;
+  transition: transform .25s ease;
+}
+
+.box:hover{
+  background-color: #ccd5ae72;
+  transform: scale(.95);
+}
+
+.box:active{
+  transform: scale(.85);
+}
+
+.box.active{
+  background-color: #ccd5ae;
+  border-color: #a6ad8e;
+}
