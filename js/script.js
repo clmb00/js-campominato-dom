@@ -17,7 +17,7 @@ function createGrid(numberCells){
     container.append(createCell(numberCells, i+1));
   }
   cellsCollection = document.getElementsByClassName('box');
-  // createBombs(cellsCollection);
+  createBombs(cellsCollection);
 }
 
 function createCell(numberCells, index){
@@ -35,4 +35,15 @@ function createCell(numberCells, index){
 function clickedBox(){
   console.log(this.innerHTML);
   this.classList.add('active');
+}
+
+function createBombs(cellsCollection){
+  let rnd;
+  while (listBombs.length<numberBombs) {
+    rnd = Math.floor(Math.random()*cellsCollection.length);
+    if (!listBombs.includes(rnd)) {
+      listBombs.push(rnd);
+      cellsCollection[rnd].bombFlag = 1;
+    }
+  }
 }
