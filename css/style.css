@@ -92,6 +92,7 @@ main{
 .box{
   cursor: pointer;
   border: 2px solid #ccd5ae;
+  color: #ccd5ae;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,7 +111,7 @@ main{
   transform: scale(.85);
 }
 
-.box.active{
+.box.clicked{
   background-color: #ccd5ae;
   border-color: #a6ad8e;
 }

@@ -1,26 +1,33 @@
 const container = document.querySelector('.main_container');
-const numberRows = [5, 7, 9, 10, 12];
+const numberCells = [36, 49, 81, 100, 144];
 const playButton = document.querySelector('header button');
+const numberBombs = 16;
+let listBombs = [];
 
 playButton.addEventListener('click', function(){
   container.innerHTML = ""
+  listBombs = [];
   const difficulty = document.querySelector('header select').value;
-  createGrid(numberRows[difficulty]);
+  createGrid(numberCells[difficulty]);
   playButton.innerHTML = "New game"
 })
 
-function createGrid(numberRows){
-  for(let i = 0; i < Math.pow(numberRows, 2); i++){
-    container.append(createCell(numberRows, i+1));
+function createGrid(numberCells){
+  for(let i = 0; i < numberCells; i++){
+    container.append(createCell(numberCells, i+1));
   }
+  cellsCollection = document.getElementsByClassName('box');
+  // createBombs(cellsCollection);
 }
 
-function createCell(numberRows, index){
+function createCell(numberCells, index){
   const box = document.createElement('div');
   box.classList.add('box');
-  box.style.width = 'calc(100% / ' + numberRows + ')';
-  box.style.height = 'calc(100% / ' + numberRows + ')';
-  box.innerHTML = index;
+  box.style.width = 'calc(100% / ' + Math.sqrt(numberCells) + ')';
+  box.style.height = 'calc(100% / ' + Math.sqrt(numberCells) + ')';
+  box.boxId = index;
+  box.bombFlag = 0;
+  box.innerHTML = box.boxId;
   box.addEventListener('click', clickedBox);
   return box;
 }
